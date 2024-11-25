@@ -13,10 +13,6 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 COPY . /app/
-WORKDIR /web
-COPY *.html /web/
-RUN mkdir -p /etc/supervisor/conf.d
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-EXPOSE 8000 8080
+EXPOSE 8000
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]:
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
